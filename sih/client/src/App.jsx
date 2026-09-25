@@ -7,6 +7,7 @@ import RemindersPage from './pages/RemindersPage';
 import CaregiverDashboard from './pages/CaregiverDashboard';
 import PatientLogin from './pages/PatientLogin';
 import CaregiverLogin from './pages/CaregiverLogin';
+import AuthLandingPage from './pages/AuthLandingPage';
 import { syncManager } from './db/syncManager';
 import { notificationService } from './services/notificationService';
 import { streakService } from './services/streakService';
@@ -25,6 +26,7 @@ import BottomNav from './components/BottomNav';
 function AppContent({ isSimpleMode }) {
   const location = useLocation();
   const isProfileOrSettings = location.pathname === '/profile' || location.pathname === '/settings';
+  const isAuthScreen = location.pathname === '/login' || location.pathname === '/auth' || location.pathname === '/patient-login' || location.pathname === '/caregiver-login';
 
   return (
     <div
@@ -39,7 +41,7 @@ function AppContent({ isSimpleMode }) {
       <ReminderAlertModal />
 
       {/* Main Content Area */}
-      <main style={{ flex: 1, paddingBottom: isProfileOrSettings ? '0px' : '90px' }}>
+      <main style={{ flex: 1, paddingBottom: (isProfileOrSettings || isAuthScreen) ? '0px' : '90px' }}>
         <Routes>
           <Route path="/" element={<Home isSimpleMode={isSimpleMode} />} />
           <Route path="/routine" element={<RoutineRecallPage />} />
@@ -61,14 +63,16 @@ function AppContent({ isSimpleMode }) {
           <Route path="/dashboard" element={<CaregiverDashboard />} />
           <Route path="/patient-login" element={<PatientLogin />} />
           <Route path="/caregiver-login" element={<CaregiverLogin />} />
+          <Route path="/auth" element={<AuthLandingPage />} />
+          <Route path="/login" element={<AuthLandingPage />} />
         </Routes>
       </main>
 
       {/* Global SMRITI Bottom Navigation Bar */}
-      <BottomNav />
+      {!isAuthScreen && <BottomNav />}
 
       {/* Regional footer - only show on desktop/dashboard views, not dedicated mobile pages */}
-      {!isProfileOrSettings && (
+      {!isProfileOrSettings && !isAuthScreen && (
         <footer
           style={{
             borderTop: '2px solid #e2e8f0',
