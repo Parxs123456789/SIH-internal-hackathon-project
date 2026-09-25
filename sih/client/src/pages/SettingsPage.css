@@ -1,0 +1,172 @@
+/* ==========================================================================
+   CogniCare SMRITI - Settings Page Styles
+   Scoped under .smriti-settings
+   ========================================================================== */
+
+.smriti-settings-page {
+  background-color: #FDF6EC;
+  min-height: 100vh;
+  padding: 20px 16px 100px;
+  display: flex;
+  justify-content: center;
+  box-sizing: border-box;
+}
+
+.smriti-settings-container {
+  width: 100%;
+  max-width: 440px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.smriti-settings-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding-bottom: 8px;
+}
+
+.smriti-settings-back-btn {
+  width: 46px;
+  height: 46px;
+  background-color: #FFFFFF;
+  border: 2px solid #111111;
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  color: #111111;
+  transition: transform 0.15s ease, background-color 0.15s ease;
+}
+
+.smriti-settings-back-btn:hover {
+  background-color: #F4EAD8;
+}
+
+.smriti-settings-back-btn:active {
+  transform: scale(0.95);
+}
+
+.smriti-settings-title {
+  font-family: 'Fredoka', 'Plus Jakarta Sans', sans-serif;
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: #111111;
+  margin: 0;
+}
+
+.smriti-settings-card {
+  background-color: #FFFFFF;
+  border: 2px solid #111111;
+  border-radius: 20px;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.04);
+}
+
+.smriti-settings-card-title {
+  font-family: 'Fredoka', 'Plus Jakarta Sans', sans-serif;
+  font-size: 1.15rem;
+  font-weight: 700;
+  color: #111111;
+  margin: 0 0 4px 0;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.smriti-settings-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 8px 0;
+  border-bottom: 1px solid #EFEAE0;
+}
+
+.smriti-settings-row:last-child {
+  border-bottom: none;
+  padding-bottom: 0;
+}
+
+.smriti-settings-label {
+  font-size: 0.95rem;
+  font-weight: 600;
+  color: #222222;
+  display: flex;
+  flex-direction: column;
+}
+
+.smriti-settings-desc {
+  font-size: 0.8rem;
+  font-weight: 400;
+  color: #666666;
+  margin-top: 2px;
+}
+
+.smriti-settings-select {
+  padding: 8px 12px;
+  border-radius: 12px;
+  border: 2px solid #111111;
+  background-color: #FAF4EB;
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: #111111;
+  cursor: pointer;
+}
+
+.smriti-settings-toggle {
+  appearance: none;
+  width: 48px;
+  height: 26px;
+  background-color: #C7C2B8;
+  border-radius: 9999px;
+  position: relative;
+  outline: none;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+  border: 2px solid #111111;
+}
+
+.smriti-settings-toggle::after {
+  content: '';
+  position: absolute;
+  top: 1px;
+  left: 2px;
+  width: 20px;
+  height: 20px;
+  background-color: #FFFFFF;
+  border-radius: 50%;
+  border: 1.5px solid #111111;
+  transition: transform 0.2s ease;
+}
+
+.smriti-settings-toggle:checked {
+  background-color: #EFB84A;
+}
+
+.smriti-settings-toggle:checked::after {
+  transform: translateX(20px);
+}
+
+.smriti-settings-action-btn {
+  width: 100%;
+  padding: 12px;
+  border-radius: 14px;
+  border: 2px solid #111111;
+  font-weight: 700;
+  font-size: 0.95rem;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  transition: background-color 0.15s ease, transform 0.15s ease;
+}
+
+.smriti-settings-action-btn:active {
+  transform: scale(0.98);
+}

@@ -1,0 +1,614 @@
+/* ==========================================================================
+   SMRITI Profile Page Styles
+   Strictly Scoped under .smriti-profile-page
+   Matching exact UI specification:
+   - Cream background (#FDF6EC)
+   - Square outlined icon buttons
+   - Large circular outlined avatar with silhouette fallback
+   - Warm golden-yellow name pill (#EFB84A)
+   - Taupe/gray info pills for Age, Gender, Contact (#C7C2B8)
+   - Flame streak row (🔥 X Days)
+   - Weekly & Today's Goal progress bars with #EFB84A fill
+   ========================================================================== */
+
+/* Full page wrapper */
+.smriti-profile-page {
+  background-color: #FDF6EC;
+  min-height: 100vh;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  padding: 24px 20px 110px;
+  box-sizing: border-box;
+  font-family: 'Plus Jakarta Sans', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  color: #111111;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* Centered container with mobile-first tall proportions */
+.smriti-profile-container {
+  width: 100%;
+  max-width: 440px;
+  display: flex;
+  flex-direction: column;
+  box-sizing: border-box;
+}
+
+/* ==========================================================================
+   Top Row: Two square outlined icon buttons
+   ========================================================================== */
+.smriti-profile-top-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  margin-bottom: 24px;
+}
+
+.smriti-profile-square-btn {
+  width: 50px;
+  height: 50px;
+  background-color: #FFFFFF;
+  border: 2.5px solid #111111;
+  border-radius: 14px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  color: #111111;
+  padding: 0;
+  transition: transform 0.15s ease, background-color 0.15s ease, box-shadow 0.15s ease;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.04);
+}
+
+.smriti-profile-square-btn:hover {
+  background-color: #F4EAD8;
+  transform: translateY(-1px);
+}
+
+.smriti-profile-square-btn:active {
+  transform: scale(0.94);
+}
+
+/* ==========================================================================
+   Avatar Section
+   ========================================================================== */
+.smriti-profile-avatar-wrap {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 28px;
+}
+
+.smriti-profile-avatar-circle {
+  width: 130px;
+  height: 130px;
+  border-radius: 50%;
+  border: 3px solid #111111;
+  background-color: #FFFFFF;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+  position: relative;
+}
+
+.smriti-profile-avatar-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.smriti-profile-avatar-silhouette {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 100%;
+}
+
+.smriti-profile-avatar-silhouette svg {
+  width: 76px;
+  height: 76px;
+  fill: #111111;
+}
+
+/* Optional edit badge under avatar */
+.smriti-profile-edit-avatar-btn {
+  margin-top: 8px;
+  font-size: 0.8rem;
+  font-weight: 700;
+  color: #666666;
+  background: none;
+  border: none;
+  cursor: pointer;
+  text-decoration: underline;
+  padding: 4px 8px;
+}
+
+.smriti-profile-edit-avatar-btn:hover {
+  color: #111111;
+}
+
+/* ==========================================================================
+   Name Pill (Warm Golden-Yellow #EFB84A)
+   ========================================================================== */
+.smriti-profile-name-pill {
+  width: 100%;
+  background-color: #EFB84A;
+  border-radius: 9999px;
+  padding: 16px 24px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 18px;
+  box-sizing: border-box;
+  box-shadow: 0 2px 6px rgba(239, 184, 74, 0.25);
+}
+
+.smriti-profile-name-text {
+  font-family: 'Plus Jakarta Sans', system-ui, sans-serif;
+  font-size: 1.45rem;
+  font-weight: 800;
+  color: #111111;
+  text-align: center;
+  letter-spacing: -0.01em;
+  line-height: 1.2;
+}
+
+/* ==========================================================================
+   Info Pills Stack (Age, Gender, Contact)
+   ========================================================================== */
+.smriti-profile-info-stack {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  width: 100%;
+  margin-bottom: 26px;
+}
+
+.smriti-profile-info-pill {
+  width: 100%;
+  background-color: #C7C2B8;
+  border-radius: 9999px;
+  padding: 15px 26px;
+  box-sizing: border-box;
+  display: flex;
+  align-items: center;
+  min-height: 54px;
+  transition: transform 0.1s ease;
+}
+
+.smriti-profile-info-pill:hover {
+  background-color: #BEB8AC;
+}
+
+.smriti-profile-info-text {
+  font-family: 'Plus Jakarta Sans', system-ui, sans-serif;
+  font-size: 1.25rem;
+  font-weight: 800;
+  color: #111111;
+  letter-spacing: -0.01em;
+  text-align: left;
+}
+
+/* ==========================================================================
+   Streak Row
+   ========================================================================== */
+.smriti-profile-streak-row {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 26px;
+  padding-left: 4px;
+}
+
+.smriti-profile-streak-icon {
+  font-size: 1.45rem;
+  line-height: 1;
+}
+
+.smriti-profile-streak-text {
+  font-family: 'Plus Jakarta Sans', system-ui, sans-serif;
+  font-size: 1.4rem;
+  font-weight: 800;
+  color: #111111;
+  letter-spacing: -0.01em;
+}
+
+/* ==========================================================================
+   Goal Sections (Weekly & Today's Goal)
+   ========================================================================== */
+.smriti-profile-goals-container {
+  display: flex;
+  flex-direction: column;
+  gap: 22px;
+  width: 100%;
+  margin-bottom: 24px;
+}
+
+.smriti-profile-goal-block {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  width: 100%;
+}
+
+.smriti-profile-goal-label {
+  font-family: 'Plus Jakarta Sans', system-ui, sans-serif;
+  font-size: 1.3rem;
+  font-weight: 800;
+  color: #111111;
+  letter-spacing: -0.01em;
+  text-align: left;
+  padding-left: 2px;
+}
+
+.smriti-profile-progress-track {
+  width: 100%;
+  height: 24px;
+  background-color: #D9D5CC;
+  border-radius: 9999px;
+  overflow: hidden;
+  position: relative;
+  box-sizing: border-box;
+}
+
+.smriti-profile-progress-fill {
+  height: 100%;
+  background-color: #EFB84A;
+  border-radius: 9999px;
+  transition: width 0.7s cubic-bezier(0.34, 1.56, 0.64, 1);
+  min-width: 0;
+}
+
+/* Quick edit / configurability trigger button */
+.smriti-profile-config-action {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  margin-top: 12px;
+  padding: 10px 18px;
+  background-color: rgba(239, 184, 74, 0.2);
+  border: 1.5px dashed #EFB84A;
+  border-radius: 14px;
+  cursor: pointer;
+  font-size: 0.9rem;
+  font-weight: 700;
+  color: #5C4308;
+  transition: all 0.15s ease;
+}
+
+.smriti-profile-config-action:hover {
+  background-color: rgba(239, 184, 74, 0.35);
+  border-style: solid;
+}
+
+/* ==========================================================================
+   Slide-Over Navigation Drawer (Side Menu)
+   ========================================================================== */
+.smriti-drawer-backdrop {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.45);
+  backdrop-filter: blur(3px);
+  z-index: 100;
+  display: flex;
+  animation: smritiDrawerFadeIn 0.25s ease-out;
+}
+
+.smriti-drawer-panel {
+  width: 82%;
+  max-width: 320px;
+  height: 100%;
+  background-color: #FDF6EC;
+  border-right: 2.5px solid #111111;
+  display: flex;
+  flex-direction: column;
+  padding: 24px 20px;
+  box-sizing: border-box;
+  animation: smritiDrawerSlideIn 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+  box-shadow: 8px 0 24px rgba(0, 0, 0, 0.15);
+  overflow-y: auto;
+}
+
+@keyframes smritiDrawerFadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes smritiDrawerSlideIn {
+  from { transform: translateX(-100%); }
+  to { transform: translateX(0); }
+}
+
+.smriti-drawer-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 20px;
+  padding-bottom: 12px;
+  border-bottom: 2px solid #EADBCC;
+}
+
+.smriti-drawer-title-wrap {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.smriti-drawer-logo-icon {
+  width: 34px;
+  height: 34px;
+  background-color: #EFB84A;
+  border: 2px solid #111111;
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.1rem;
+}
+
+.smriti-drawer-title {
+  font-family: 'Fredoka', 'Plus Jakarta Sans', sans-serif;
+  font-size: 1.35rem;
+  font-weight: 800;
+  color: #111111;
+  margin: 0;
+}
+
+.smriti-drawer-close-btn {
+  width: 38px;
+  height: 38px;
+  border: 2px solid #111111;
+  border-radius: 10px;
+  background-color: #FFFFFF;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  color: #111111;
+  transition: transform 0.15s ease, background-color 0.15s ease;
+}
+
+.smriti-drawer-close-btn:hover {
+  background-color: #F4EAD8;
+}
+
+.smriti-drawer-close-btn:active {
+  transform: scale(0.92);
+}
+
+.smriti-drawer-user-card {
+  background-color: #FFFFFF;
+  border: 2px solid #111111;
+  border-radius: 16px;
+  padding: 14px 16px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 20px;
+}
+
+.smriti-drawer-user-avatar {
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  border: 2px solid #111111;
+  background-color: #FAF4EB;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  flex-shrink: 0;
+}
+
+.smriti-drawer-user-info {
+  display: flex;
+  flex-direction: column;
+}
+
+.smriti-drawer-user-name {
+  font-size: 1.05rem;
+  font-weight: 800;
+  color: #111111;
+  line-height: 1.2;
+}
+
+.smriti-drawer-user-sub {
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: #666666;
+  margin-top: 2px;
+}
+
+.smriti-drawer-nav-list {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  flex: 1;
+}
+
+.smriti-drawer-nav-item {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 12px 14px;
+  background-color: #FFFFFF;
+  border: 2px solid #111111;
+  border-radius: 14px;
+  text-decoration: none;
+  color: #111111;
+  font-weight: 700;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: transform 0.15s ease, background-color 0.15s ease;
+}
+
+.smriti-drawer-nav-item:hover {
+  background-color: #F4EAD8;
+  transform: translateX(4px);
+}
+
+.smriti-drawer-nav-item.active {
+  background-color: #EFB84A;
+  border-color: #111111;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.08);
+}
+
+.smriti-drawer-item-icon {
+  font-size: 1.25rem;
+  line-height: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.smriti-drawer-footer {
+  margin-top: 24px;
+  padding-top: 14px;
+  border-top: 2px solid #EADBCC;
+  text-align: center;
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: #777777;
+}
+
+/* ==========================================================================
+   Edit Profile Modal (Configurability)
+   ========================================================================== */
+.smriti-modal-backdrop {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.5);
+  backdrop-filter: blur(2px);
+  z-index: 110;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 16px;
+  animation: smritiDrawerFadeIn 0.2s ease-out;
+}
+
+.smriti-modal-dialog {
+  background-color: #FFFFFF;
+  border: 2.5px solid #111111;
+  border-radius: 24px;
+  width: 100%;
+  max-width: 420px;
+  padding: 24px;
+  box-sizing: border-box;
+  max-height: 90vh;
+  overflow-y: auto;
+  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.2);
+}
+
+.smriti-modal-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 18px;
+}
+
+.smriti-modal-title {
+  font-family: 'Fredoka', 'Plus Jakarta Sans', sans-serif;
+  font-size: 1.35rem;
+  font-weight: 800;
+  color: #111111;
+  margin: 0;
+}
+
+.smriti-modal-form {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.smriti-form-field {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.smriti-form-label {
+  font-size: 0.85rem;
+  font-weight: 700;
+  color: #222222;
+}
+
+.smriti-form-input {
+  width: 100%;
+  padding: 12px 14px;
+  border-radius: 12px;
+  border: 2px solid #111111;
+  background-color: #FAF4EB;
+  font-size: 0.95rem;
+  font-weight: 700;
+  color: #111111;
+  box-sizing: border-box;
+  outline: none;
+}
+
+.smriti-form-input:focus {
+  border-color: #EFB84A;
+  background-color: #FFFFFF;
+}
+
+.smriti-form-row {
+  display: flex;
+  gap: 12px;
+}
+
+.smriti-modal-actions {
+  display: flex;
+  gap: 10px;
+  margin-top: 10px;
+}
+
+.smriti-modal-btn {
+  flex: 1;
+  padding: 12px;
+  border-radius: 14px;
+  border: 2px solid #111111;
+  font-weight: 800;
+  font-size: 0.95rem;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  transition: transform 0.15s ease, background-color 0.15s ease;
+}
+
+.smriti-modal-btn:active {
+  transform: scale(0.97);
+}
+
+.smriti-modal-btn-primary {
+  background-color: #EFB84A;
+  color: #111111;
+}
+
+.smriti-modal-btn-primary:hover {
+  background-color: #E2A633;
+}
+
+.smriti-modal-btn-secondary {
+  background-color: #EAE5DC;
+  color: #111111;
+}
+
+.smriti-modal-btn-secondary:hover {
+  background-color: #DFD8CD;
+}
