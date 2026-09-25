@@ -9,31 +9,20 @@ import { ttsService } from '../services/ttsService';
 export default function PatientLogin() {
   const { t, i18n } = useTranslation();
   const navigate = useNavigate();
-  const [pin, setPin] = useState('');
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const [caregiverEmail, setCaregiverEmail] = useState('');
   const [error, setError] = useState('');
   const [loading, setLoading] = useState(false);
+  const [isSignup, setIsSignup] = useState(false);
 
-  const handleKeyClick = (num) => {
-    if (pin.length < 4) {
-      setPin((prev) => prev + num);
-      setError('');
-    }
-  };
+  const handleSubmit = async (e, demoCreds = null) => {
+    if (e) e.preventDefault();
+    const loginEmail = demoCreds ? demoCreds.email : email;
+    const loginPassword = demoCreds ? demoCreds.password : password;
 
-  const handleBackspace = () => {
-    setPin((prev) => prev.slice(0, -1));
-    setError('');
-  };
-
-  const handleClear = () => {
-    setPin('');
-    setError('');
-  };
-
-  const handleSubmit = async (overridePin = null) => {
-    const pinToSubmit = overridePin || pin;
-    if (pinToSubmit.length !== 4) {
-      setError('Please enter your 4-digit PIN');
+    if (!loginEmail || !loginPassword) {
+      setError('Please provide email and password');
       return;
     }
 
@@ -41,30 +30,42 @@ export default function PatientLogin() {
     setError('');
 
     try {
-      const res = await api.loginPatient(pinToSubmit);
-      if (res?.success) {
-        api.setToken(res.token);
-        api.setCurrentUser(res.user);
+      if (isSignup) {
+        if (!caregiverEmail) {
+          setError('Please provide your caregiver\'s email to link your account');
+          setLoading(false);
+          return;
+        }
+        await api.registerPatient(loginEmail, loginPassword, caregiverEmail);
+        setError('Account created successfully. Please check your email or log in.');
+        setIsSignup(false);
+      } else {
+        const res = await api.loginPatient(loginEmail, loginPassword);
+        if (res?.success) {
+          api.setToken(res.token);
+          api.setCurrentUser(res.user);
 
-        const welcomeVoice =
-          i18n.language === 'as'
-            ? `নমস্কাৰ ${res.user.name}, কগনিকেন্দ্ৰলৈ স্বাগতম!`
-            : `Welcome back, ${res.user.name}!`;
-        ttsService.speak(welcomeVoice, i18n.language || 'as');
+          const welcomeVoice =
+            i18n.language === 'as'
+              ? `নমস্কাৰ ${res.user.name}, কগনিকেন্দ্ৰলৈ স্বাগতম!`
+              : `Welcome back, ${res.user.name}!`;
+          ttsService.speak(welcomeVoice, i18n.language || 'as');
 
-        navigate('/games');
+          navigate('/games');
+        }
       }
     } catch (err) {
-      setError(err.message || 'Incorrect PIN. Please ask your caregiver or try again.');
-      ttsService.speak('পিন ভুল হৈছে, অনুগ্ৰহ কৰি আকৌ চেষ্টা কৰক', i18n.language || 'as');
+      setError(err.message || 'Authentication failed. Please try again.');
+      if (!isSignup) ttsService.speak('লগিন ভুল হৈছে, অনুগ্ৰহ কৰি আকৌ চেষ্টা কৰক', i18n.language || 'as');
     } finally {
       setLoading(false);
     }
   };
 
   const handleDemoPatient = () => {
-    setPin('1234');
-    handleSubmit('1234');
+    setEmail('elder@cognicare.ner');
+    setPassword('password123');
+    handleSubmit(null, { email: 'elder@cognicare.ner', password: 'password123' });
   };
 
   return (
@@ -95,164 +96,93 @@ export default function PatientLogin() {
         </div>
 
         <h1 style={{ fontSize: '2rem', fontWeight: 800, color: '#0f172a', marginBottom: '8px' }}>
-          {t('auth.patientLoginTitle')}
+          {isSignup ? 'Elder Sign Up' : t('auth.patientLoginTitle')}
         </h1>
 
         <p style={{ fontSize: '1.15rem', color: '#64748b', marginBottom: '24px' }}>
-          {t('auth.patientLoginSubtitle')}
+          {isSignup ? 'Create a new elder account' : t('auth.patientLoginSubtitle')}
         </p>
 
-        {/* PIN Display Circles */}
-        <div
-          style={{
-            display: 'flex',
-            justifyContent: 'center',
-            gap: '16px',
-            marginBottom: '28px',
-          }}
-        >
-          {[0, 1, 2, 3].map((idx) => {
-            const hasDigit = pin.length > idx;
-            return (
-              <div
-                key={idx}
-                style={{
-                  width: '64px',
-                  height: '64px',
-                  borderRadius: '16px',
-                  border: `3px solid ${hasDigit ? '#0284c7' : '#cbd5e1'}`,
-                  backgroundColor: hasDigit ? '#e0f2fe' : '#ffffff',
-                  display: 'flex',
-                  alignItems: 'center',
-                  justifyContent: 'center',
-                  fontSize: '2rem',
-                  fontWeight: 800,
-                  color: '#0284c7',
-                }}
-              >
-                {hasDigit ? '•' : ''}
-              </div>
-            );
-          })}
-        </div>
-
-        {error && (
-          <div
-            style={{
-              backgroundColor: '#fee2e2',
-              color: '#b91c1c',
-              padding: '10px',
-              borderRadius: '12px',
-              fontWeight: 700,
-              fontSize: '1rem',
-              marginBottom: '20px',
-            }}
-          >
-            {error}
-          </div>
-        )}
-
-        {/* Large Numeric Keypad (Huge 70px+ tap targets) */}
-        <div
-          style={{
-            display: 'grid',
-            gridTemplateColumns: 'repeat(3, 1fr)',
-            gap: '14px',
-            marginBottom: '24px',
-          }}
-        >
-          {[1, 2, 3, 4, 5, 6, 7, 8, 9].map((num) => (
-            <button
-              key={num}
-              type="button"
-              onClick={() => handleKeyClick(String(num))}
+        {/* Login Form */}
+        <form onSubmit={handleSubmit} style={{ display: 'flex', flexDirection: 'column', gap: '20px', marginBottom: '24px' }}>
+          <div>
+            <input
+              type="email"
+              required
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+              placeholder="Email (e.g. elder@cognicare.ner)"
               style={{
-                minHeight: '72px',
-                borderRadius: '18px',
+                width: '100%',
+                padding: '16px',
+                borderRadius: '16px',
                 border: '2px solid #cbd5e1',
-                backgroundColor: '#ffffff',
-                fontSize: '2rem',
-                fontWeight: 800,
-                color: '#0f172a',
-                cursor: 'pointer',
-                boxShadow: '0 4px 8px rgba(0,0,0,0.04)',
+                fontSize: '1.2rem',
               }}
-            >
-              {num}
-            </button>
-          ))}
+            />
+          </div>
 
-          {/* Bottom row: Clear, 0, Backspace */}
+          <div>
+            <input
+              type="password"
+              required
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+              placeholder="Password"
+              style={{
+                width: '100%',
+                padding: '16px',
+                borderRadius: '16px',
+                border: '2px solid #cbd5e1',
+                fontSize: '1.2rem',
+              }}
+            />
+          </div>
+
+          {isSignup && (
+            <div>
+              <input
+                type="email"
+                required={isSignup}
+                value={caregiverEmail}
+                onChange={(e) => setCaregiverEmail(e.target.value)}
+                placeholder="Caregiver's Email"
+                style={{
+                  width: '100%',
+                  padding: '16px',
+                  borderRadius: '16px',
+                  border: '2px solid #cbd5e1',
+                  fontSize: '1.2rem',
+                }}
+              />
+            </div>
+          )}
+
+          {/* Submit Button */}
           <button
-            type="button"
-            onClick={handleClear}
+            type="submit"
+            disabled={loading}
+            className="btn-primary"
             style={{
-              minHeight: '72px',
-              borderRadius: '18px',
-              border: '2px solid #cbd5e1',
-              backgroundColor: '#f1f5f9',
-              fontSize: '1.1rem',
-              fontWeight: 800,
-              color: '#64748b',
-              cursor: 'pointer',
+              width: '100%',
+              minHeight: '68px',
+              fontSize: '1.35rem',
             }}
           >
-            Clear
+            <span>{loading ? 'Processing...' : (isSignup ? 'Sign Up' : 'Login')}</span>
+            <ArrowRight size={24} />
           </button>
+        </form>
 
-          <button
-            type="button"
-            onClick={() => handleKeyClick('0')}
-            style={{
-              minHeight: '72px',
-              borderRadius: '18px',
-              border: '2px solid #cbd5e1',
-              backgroundColor: '#ffffff',
-              fontSize: '2rem',
-              fontWeight: 800,
-              color: '#0f172a',
-              cursor: 'pointer',
-              boxShadow: '0 4px 8px rgba(0,0,0,0.04)',
-            }}
+        <div style={{ textAlign: 'center', marginTop: '16px' }}>
+          <button 
+            type="button" 
+            onClick={() => { setIsSignup(!isSignup); setError(''); }}
+            style={{ background: 'none', border: 'none', color: '#0284c7', fontWeight: 700, cursor: 'pointer', fontSize: '0.95rem' }}
           >
-            0
-          </button>
-
-          <button
-            type="button"
-            onClick={handleBackspace}
-            style={{
-              minHeight: '72px',
-              borderRadius: '18px',
-              border: '2px solid #cbd5e1',
-              backgroundColor: '#fee2e2',
-              color: '#dc2626',
-              display: 'flex',
-              alignItems: 'center',
-              justifyContent: 'center',
-              cursor: 'pointer',
-            }}
-          >
-            <Delete size={28} />
+            {isSignup ? 'Already have an account? Log in' : "Don't have an account? Sign up"}
           </button>
         </div>
-
-        {/* Submit Button */}
-        <button
-          onClick={() => handleSubmit()}
-          disabled={loading || pin.length !== 4}
-          className="btn-primary"
-          style={{
-            width: '100%',
-            minHeight: '68px',
-            fontSize: '1.35rem',
-            opacity: pin.length === 4 ? 1 : 0.6,
-            marginBottom: '20px',
-          }}
-        >
-          <span>{loading ? 'Verifying...' : t('auth.pinSubmit')}</span>
-          <ArrowRight size={24} />
-        </button>
 
         {/* One-Tap Demo Helper */}
         <div style={{ borderTop: '2px solid #f1f5f9', paddingTop: '20px' }}>

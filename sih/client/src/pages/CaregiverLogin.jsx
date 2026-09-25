@@ -11,6 +11,7 @@ export default function CaregiverLogin() {
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
   const [loading, setLoading] = useState(false);
+  const [isSignup, setIsSignup] = useState(false);
 
   const handleSubmit = async (e, demoCreds = null) => {
     if (e) e.preventDefault();
@@ -26,14 +27,20 @@ export default function CaregiverLogin() {
     setError('');
 
     try {
-      const res = await api.loginCaregiver(loginEmail, loginPassword);
-      if (res?.success) {
-        api.setToken(res.token);
-        api.setCurrentUser(res.user);
-        navigate('/dashboard');
+      if (isSignup) {
+        await api.registerCaregiver(loginEmail, loginPassword);
+        setError('Account created successfully. Please check your email or log in.');
+        setIsSignup(false);
+      } else {
+        const res = await api.loginCaregiver(loginEmail, loginPassword);
+        if (res?.success) {
+          api.setToken(res.token);
+          api.setCurrentUser(res.user);
+          navigate('/dashboard');
+        }
       }
     } catch (err) {
-      setError(err.message || 'Login failed. Please check your credentials.');
+      setError(err.message || 'Authentication failed. Please check your credentials.');
     } finally {
       setLoading(false);
     }
@@ -72,11 +79,11 @@ export default function CaregiverLogin() {
         </div>
 
         <h1 style={{ fontSize: '1.9rem', fontWeight: 800, color: '#0f172a', textAlign: 'center', marginBottom: '8px' }}>
-          {t('auth.caregiverLoginTitle')}
+          {isSignup ? 'Caregiver Sign Up' : t('auth.caregiverLoginTitle')}
         </h1>
 
         <p style={{ fontSize: '1.1rem', color: '#64748b', textAlign: 'center', marginBottom: '28px' }}>
-          {t('auth.caregiverLoginSubtitle')}
+          {isSignup ? 'Create a new caregiver account' : t('auth.caregiverLoginSubtitle')}
         </p>
 
         {error && (
@@ -161,10 +168,20 @@ export default function CaregiverLogin() {
               marginTop: '8px',
             }}
           >
-            <span>{loading ? 'Signing In...' : t('auth.loginButton')}</span>
+            <span>{loading ? 'Processing...' : (isSignup ? 'Sign Up' : t('auth.loginButton'))}</span>
             <ArrowRight size={22} />
           </button>
         </form>
+
+        <div style={{ textAlign: 'center', marginTop: '16px' }}>
+          <button 
+            type="button" 
+            onClick={() => { setIsSignup(!isSignup); setError(''); }}
+            style={{ background: 'none', border: 'none', color: '#0d9488', fontWeight: 700, cursor: 'pointer', fontSize: '0.95rem' }}
+          >
+            {isSignup ? 'Already have an account? Log in' : "Don't have an account? Sign up"}
+          </button>
+        </div>
 
         {/* Demo Quick Login */}
         <div style={{ borderTop: '2px solid #f1f5f9', marginTop: '28px', paddingTop: '20px', textAlign: 'center' }}>

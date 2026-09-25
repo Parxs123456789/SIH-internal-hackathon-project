@@ -24,6 +24,8 @@ import {
   CartesianGrid,
 } from 'recharts';
 import { api } from '../services/api';
+import QuickContactsManager from '../components/QuickContactsManager';
+import CaregiverRemindersManager from '../components/CaregiverRemindersManager';
 
 export default function CaregiverDashboard() {
   const { t, i18n } = useTranslation();
@@ -437,6 +439,10 @@ export default function CaregiverDashboard() {
                   </table>
                 </div>
               </div>
+
+              {/* Manage Contacts & Reminders */}
+              <QuickContactsManager patientId={selectedPatientId} />
+              <CaregiverRemindersManager patientId={selectedPatientId} />
             </>
           ) : (
             <div className="card" style={{ textAlign: 'center', padding: '48px', color: '#64748b' }}>
