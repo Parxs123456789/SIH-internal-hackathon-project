@@ -1,0 +1,370 @@
+/* ==========================================================================
+   SMRITI Home Dashboard Styles
+   Scoped under .smriti-
+   Matches the mockup:
+   - Soft cream background with subtle pink/red grid lines
+   - Header with SMRITI logo, HELLO JOHN greeting, notification button
+   - Central teal/emerald voice assistant button
+   - "Play Games" heading + tan panel (#F0D9A8) with white pill game cards
+   ========================================================================== */
+
+@import url('https://fonts.googleapis.com/css2?family=Fredoka:wght@600;700;800&family=Plus+Jakarta+Sans:wght@600;700;800&display=swap');
+
+.smriti-wrapper {
+  min-height: 100vh;
+  background-color: #FAF4EB;
+  padding: 20px 16px 110px;
+  display: flex;
+  justify-content: center;
+}
+
+.smriti-container {
+  width: 100%;
+  max-width: 420px;
+  display: flex;
+  flex-direction: column;
+  position: relative;
+}
+
+/* --------------------------------------------------------------------------
+   Top Header Row
+   -------------------------------------------------------------------------- */
+.smriti-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  margin-bottom: 24px;
+  gap: 12px;
+}
+
+/* Left: Logo & App Title */
+.smriti-brand-group {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.smriti-logo-circle {
+  width: 46px;
+  height: 46px;
+  border-radius: 50%;
+  background-color: #2E7D32;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #FFFFFF;
+  box-shadow: 0 4px 10px rgba(46, 125, 50, 0.25);
+  flex-shrink: 0;
+}
+
+.smriti-brand-text {
+  display: flex;
+  flex-direction: column;
+}
+
+.smriti-brand-name {
+  font-family: 'Fredoka', 'Plus Jakarta Sans', sans-serif;
+  font-size: 20px;
+  font-weight: 800;
+  color: #111111;
+  letter-spacing: 0.05em;
+  line-height: 1.1;
+  margin: 0;
+}
+
+.smriti-brand-tagline {
+  font-size: 9.5px;
+  font-weight: 700;
+  color: #7D7267;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  margin: 0;
+}
+
+/* Greeting */
+.smriti-greeting {
+  font-family: 'Fredoka', 'Plus Jakarta Sans', sans-serif;
+  font-size: 15px;
+  font-weight: 800;
+  color: #111111;
+  letter-spacing: 0.02em;
+  text-transform: uppercase;
+  margin: 0;
+  text-align: center;
+  flex: 1;
+}
+
+/* Notification Button */
+.smriti-notif-group {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  cursor: pointer;
+  background: none;
+  border: none;
+  padding: 0;
+  user-select: none;
+}
+
+.smriti-notif-btn {
+  width: 40px;
+  height: 40px;
+  border-radius: 12px;
+  border: 1.5px solid #111111;
+  background-color: #FFFFFF;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #111111;
+  transition: all 0.15s ease;
+  position: relative;
+}
+
+.smriti-notif-btn:hover {
+  background-color: #F8EFE4;
+}
+
+.smriti-notif-badge {
+  position: absolute;
+  top: -4px;
+  right: -4px;
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background-color: #EF4444;
+  border: 2px solid #FFFFFF;
+}
+
+.smriti-notif-label {
+  font-size: 9.5px;
+  font-weight: 700;
+  color: #111111;
+  margin-top: 3px;
+  letter-spacing: 0.01em;
+}
+
+/* --------------------------------------------------------------------------
+   Voice Assistant Section (Center Teal Button)
+   -------------------------------------------------------------------------- */
+.smriti-voice-section {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-bottom: 28px;
+  width: 100%;
+}
+
+.smriti-voice-btn {
+  width: 86px;
+  height: 86px;
+  border-radius: 50%;
+  background-color: #3F9C93;
+  border: none;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #111111;
+  box-shadow: 0 8px 24px rgba(63, 156, 147, 0.35);
+  transition: transform 0.15s ease, background-color 0.2s ease, box-shadow 0.2s ease;
+  outline: none;
+  position: relative;
+}
+
+.smriti-voice-btn:hover {
+  background-color: #358B82;
+  transform: scale(1.04);
+}
+
+.smriti-voice-btn:active {
+  transform: scale(0.96);
+}
+
+/* Listening Pulsing Waves */
+.smriti-voice-btn.listening {
+  background-color: #2F8A81;
+  animation: smritiVoicePulse 1.4s infinite ease-out;
+}
+
+@keyframes smritiVoicePulse {
+  0% {
+    box-shadow: 0 0 0 0 rgba(63, 156, 147, 0.6);
+  }
+  70% {
+    box-shadow: 0 0 0 20px rgba(63, 156, 147, 0);
+  }
+  100% {
+    box-shadow: 0 0 0 0 rgba(63, 156, 147, 0);
+  }
+}
+
+.smriti-voice-status {
+  font-size: 13px;
+  font-weight: 700;
+  color: #236B64;
+  margin-top: 10px;
+  text-align: center;
+  min-height: 20px;
+}
+
+.smriti-voice-bubble {
+  background-color: #FFFFFF;
+  border: 1.5px solid #3F9C93;
+  border-radius: 16px;
+  padding: 8px 16px;
+  font-size: 12.5px;
+  font-weight: 700;
+  color: #111111;
+  margin-top: 8px;
+  text-align: center;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+  animation: smritiBubbleFade 0.2s ease;
+  max-width: 90%;
+}
+
+@keyframes smritiBubbleFade {
+  from { opacity: 0; transform: translateY(-4px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* --------------------------------------------------------------------------
+   "Play Games" Section
+   -------------------------------------------------------------------------- */
+.smriti-games-section {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.smriti-games-title {
+  font-family: 'Fredoka', 'Plus Jakarta Sans', sans-serif;
+  font-size: 28px;
+  font-weight: 700;
+  color: #111111;
+  text-align: center;
+  margin: 0 0 16px 0;
+  letter-spacing: -0.01em;
+}
+
+/* Rounded Tan/Beige Panel (#F0D9A8) */
+.smriti-games-panel {
+  width: 100%;
+  background-color: #F0D9A8;
+  border: 1.5px solid #E5C992;
+  border-radius: 28px;
+  padding: 20px 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  box-shadow: 0 8px 24px rgba(181, 140, 80, 0.12);
+}
+
+/* White Rounded Pill Game Cards */
+.smriti-game-card {
+  width: 100%;
+  background-color: #FFFFFF;
+  border: 1px solid #EBD5BE;
+  border-radius: 9999px;
+  padding: 12px 20px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  text-decoration: none;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+  transition: all 0.18s cubic-bezier(0.34, 1.56, 0.64, 1);
+  user-select: none;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.smriti-game-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.09);
+  border-color: #3F9C93;
+}
+
+.smriti-game-card:active {
+  transform: scale(0.98);
+}
+
+.smriti-game-content {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+
+.smriti-game-icon-badge {
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 24px;
+  line-height: 1;
+  flex-shrink: 0;
+}
+
+.smriti-game-label {
+  font-family: 'Fredoka', 'Plus Jakarta Sans', sans-serif;
+  font-size: 17px;
+  font-weight: 700;
+  color: #111111;
+  letter-spacing: 0.01em;
+}
+
+.smriti-game-chevron {
+  color: #B5A898;
+  font-size: 16px;
+  transition: transform 0.15s ease;
+}
+
+.smriti-game-card:hover .smriti-game-chevron {
+  color: #3F9C93;
+  transform: translateX(3px);
+}
+
+/* --------------------------------------------------------------------------
+   Notification Panel Dropdown / Modal
+   -------------------------------------------------------------------------- */
+.smriti-notif-dropdown {
+  position: absolute;
+  top: 60px;
+  right: 0;
+  width: 300px;
+  background-color: #FFFFFF;
+  border: 1.5px solid #EADBCC;
+  border-radius: 20px;
+  padding: 16px;
+  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.12);
+  z-index: 60;
+  animation: smritiDropdownFade 0.2s ease;
+}
+
+@keyframes smritiDropdownFade {
+  from { opacity: 0; transform: translateY(-8px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.smriti-notif-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 12px;
+  border-bottom: 1px solid #F0E6D8;
+  padding-bottom: 8px;
+}
+
+.smriti-notif-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  padding: 8px 0;
+  border-bottom: 1px solid #FAF4EB;
+  font-size: 12.5px;
+}
+
+.smriti-notif-item:last-child {
+  border-bottom: none;
+}

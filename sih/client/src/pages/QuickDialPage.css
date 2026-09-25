@@ -1,0 +1,252 @@
+/* ==========================================================================
+   Quick Dial Page Styles
+   Scoped under .qd-
+   Matches the UI Specification:
+   - Full page soft cream/off-white background (#FDF6EC)
+   - Centered tall container (mobile-first, max-width 440px)
+   - Rounded rectangular pill cards with warm tan/sand background (#E3B98A)
+   - Left-aligned two-line text block (bold name + semi-bold phone number)
+   - Right-aligned dedicated tappable call logo with sound waves
+   ========================================================================== */
+
+@import url('https://fonts.googleapis.com/css2?family=Baloo+2:wght@600;700;800&family=Fredoka:wght@600;700;800&family=Plus+Jakarta+Sans:wght@500;600;700&display=swap');
+
+/* Full-page wrapper */
+.qd-page-wrapper {
+  min-height: 100vh;
+  width: 100%;
+  background-color: #FDF6EC;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  padding: 32px 18px 120px;
+  box-sizing: border-box;
+}
+
+/* Centered Mobile-First Column Container */
+.qd-container {
+  width: 100%;
+  max-width: 440px;
+  display: flex;
+  flex-direction: column;
+  box-sizing: border-box;
+}
+
+/* Page Header / Title */
+.qd-header {
+  text-align: center;
+  margin-bottom: 28px;
+}
+
+.qd-title {
+  font-family: 'Fredoka', 'Baloo 2', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  font-size: 2.35rem;
+  font-weight: 700;
+  color: #111111;
+  margin: 0;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  letter-spacing: -0.5px;
+  line-height: 1.2;
+}
+
+.qd-title-icon {
+  font-size: 2rem;
+  display: inline-flex;
+  align-items: center;
+}
+
+/* Contacts Vertical Stack */
+.qd-contacts-list {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+/* Contact Pill Card */
+.qd-card {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background-color: #E3B98A;
+  border-radius: 28px;
+  padding: 16px 22px;
+  text-decoration: none;
+  color: inherit;
+  box-shadow: 0 4px 12px rgba(180, 130, 80, 0.16);
+  border: 1px solid rgba(160, 110, 60, 0.12);
+  transition: transform 0.18s cubic-bezier(0.4, 0, 0.2, 1),
+              box-shadow 0.18s cubic-bezier(0.4, 0, 0.2, 1),
+              background-color 0.18s ease;
+  cursor: pointer;
+  -webkit-tap-highlight-color: transparent;
+  user-select: none;
+  box-sizing: border-box;
+  touch-action: manipulation;
+}
+
+/* Card Tap & Hover Feedback */
+.qd-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 18px rgba(170, 115, 65, 0.24);
+  background-color: #E0B482;
+}
+
+.qd-card:active {
+  transform: translateY(1px) scale(0.99);
+  box-shadow: 0 2px 8px rgba(170, 115, 65, 0.2);
+}
+
+.qd-card:focus-visible {
+  outline: 3px solid #111111;
+  outline-offset: 3px;
+}
+
+/* Left Text Block */
+.qd-info {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 4px;
+  min-width: 0;
+  flex: 1;
+}
+
+.qd-name {
+  font-family: 'Fredoka', 'Baloo 2', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  font-size: 1.35rem;
+  font-weight: 700;
+  color: #111111;
+  margin: 0;
+  line-height: 1.2;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.qd-phone {
+  font-family: 'SF Mono', 'Roboto Mono', 'Plus Jakarta Sans', monospace, sans-serif;
+  font-size: 0.98rem;
+  font-weight: 600;
+  color: #222222;
+  margin: 0;
+  line-height: 1.25;
+  letter-spacing: 0.4px;
+}
+
+/* Dedicated Right-Aligned Call Logo Button */
+.qd-call-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 50px;
+  height: 50px;
+  min-width: 50px;
+  border-radius: 50%;
+  background-color: rgba(0, 0, 0, 0.06);
+  border: 1.5px solid rgba(0, 0, 0, 0.12);
+  color: #111111;
+  text-decoration: none;
+  flex-shrink: 0;
+  margin-left: 12px;
+  transition: all 0.22s cubic-bezier(0.34, 1.56, 0.64, 1);
+  cursor: pointer;
+  -webkit-tap-highlight-color: transparent;
+  touch-action: manipulation;
+  box-sizing: border-box;
+  position: relative;
+}
+
+/* Call Logo Radiant Glow on Hover */
+.qd-call-btn:hover {
+  background-color: #FFFFFF;
+  border-color: rgba(255, 255, 255, 0.95);
+  transform: scale(1.15);
+  animation: qd-glow-pulse 1.8s infinite ease-in-out;
+}
+
+@keyframes qd-glow-pulse {
+  0%, 100% {
+    box-shadow: 0 0 0 3px rgba(255, 255, 255, 0.85),
+                0 0 15px rgba(255, 245, 215, 0.95),
+                0 0 28px rgba(255, 215, 130, 0.85),
+                0 0 42px rgba(235, 175, 90, 0.65);
+  }
+  50% {
+    box-shadow: 0 0 0 4px rgba(255, 255, 255, 0.95),
+                0 0 22px rgba(255, 255, 245, 1),
+                0 0 36px rgba(255, 225, 145, 0.95),
+                0 0 52px rgba(245, 190, 100, 0.8);
+  }
+}
+
+/* Instant tap glow response */
+.qd-call-btn:active {
+  background-color: #FFFFFF;
+  transform: scale(0.92);
+  box-shadow: 0 0 12px rgba(255, 255, 255, 0.9),
+              0 0 24px rgba(255, 215, 120, 0.85);
+  animation: none;
+}
+
+.qd-call-btn:focus-visible {
+  outline: 3px solid #111111;
+  outline-offset: 3px;
+  box-shadow: 0 0 18px rgba(255, 215, 120, 0.9);
+}
+
+.qd-call-icon {
+  width: 25px;
+  height: 25px;
+  stroke: #111111;
+  stroke-width: 2.5;
+  fill: none;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  transition: transform 0.22s ease, stroke 0.22s ease;
+  pointer-events: none;
+}
+
+.qd-call-btn:hover .qd-call-icon {
+  transform: rotate(-12deg) scale(1.08);
+  stroke: #000000;
+}
+
+/* Responsive adjustments for narrow mobile devices */
+@media (max-width: 380px) {
+  .qd-page-wrapper {
+    padding: 24px 14px 110px;
+  }
+
+  .qd-title {
+    font-size: 2rem;
+  }
+
+  .qd-card {
+    padding: 14px 18px;
+    border-radius: 24px;
+  }
+
+  .qd-name {
+    font-size: 1.25rem;
+  }
+
+  .qd-phone {
+    font-size: 0.92rem;
+  }
+
+  .qd-call-btn {
+    width: 46px;
+    height: 46px;
+    min-width: 46px;
+  }
+
+  .qd-call-icon {
+    width: 23px;
+    height: 23px;
+  }
+}
