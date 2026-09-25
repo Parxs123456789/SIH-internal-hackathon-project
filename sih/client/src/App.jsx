@@ -9,6 +9,7 @@ import PatientLogin from './pages/PatientLogin';
 import CaregiverLogin from './pages/CaregiverLogin';
 import { syncManager } from './db/syncManager';
 import { notificationService } from './services/notificationService';
+import { streakService } from './services/streakService';
 
 import RememberAndMatchPage from './pages/RememberAndMatchPage';
 import PatternAndSequencePage from './pages/PatternAndSequencePage';
@@ -109,8 +110,12 @@ export default function App() {
     notificationService.requestPermission();
     notificationService.startReminderScheduler();
 
+    // 3. Initialize daily login and 5-minute playtime streak service
+    streakService.init();
+
     return () => {
       notificationService.stopReminderScheduler();
+      streakService.stop();
     };
   }, []);
 

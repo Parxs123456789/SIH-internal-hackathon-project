@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
-import { Menu, Settings, X, Edit3, Check, RotateCcw } from 'lucide-react';
+import { Menu, Settings, X, Edit3, Check, RotateCcw, Lock, Clock } from 'lucide-react';
+import { streakService, DAILY_PLAYTIME_GOAL_SECONDS } from '../services/streakService';
 import './ProfilePage.css';
 
 /**
@@ -30,6 +31,13 @@ const DEFAULT_USER_DATA = {
   },
 };
 
+// Formats seconds into MM:SS display
+function formatPlaytime(totalSeconds = 0) {
+  const mins = Math.floor(totalSeconds / 60);
+  const secs = totalSeconds % 60;
+  return `${mins}:${secs < 10 ? '0' : ''}${secs}`;
+}
+
 export default function ProfilePage() {
   const navigate = useNavigate();
 
@@ -49,6 +57,37 @@ export default function ProfilePage() {
     return DEFAULT_USER_DATA;
   });
 
+  // Daily playtime tracker state for streak upgrade requirement
+  const [playtimeTracker, setPlaytimeTracker] = useState(() => streakService.getTrackerState());
+
+  // Listen to streakService state & automatic streak upgrade events
+  useEffect(() => {
+    // 1. Subscribe to real-time playtime ticking
+    const unsubscribe = streakService.subscribe((state) => {
+      setPlaytimeTracker(state);
+    });
+
+    // 2. Listen to custom event fired when 5-min playtime goal is met and streak upgrades
+    const handleStreakUpgraded = (e) => {
+      try {
+        const rawProfile = localStorage.getItem('smriti_user_profile');
+        if (rawProfile) {
+          const freshProfile = JSON.parse(rawProfile);
+          setUserData(freshProfile);
+        }
+      } catch (err) {
+        console.warn('Error reading updated profile:', err);
+      }
+    };
+
+    window.addEventListener('smriti_streak_updated', handleStreakUpgraded);
+
+    return () => {
+      unsubscribe();
+      window.removeEventListener('smriti_streak_updated', handleStreakUpgraded);
+    };
+  }, []);
+
   // Persist user-data state changes to localStorage
   useEffect(() => {
     try {
@@ -67,13 +106,22 @@ export default function ProfilePage() {
 
   // Keep form data in sync when edit modal opens
   const handleOpenEdit = () => {
-    setFormData(userData);
+    setFormData({
+      ...userData,
+      // Streak is read-only and preserved from current state
+      streak: userData.streak,
+    });
     setIsEditModalOpen(true);
   };
 
   const handleSaveEdit = (e) => {
     e.preventDefault();
-    setUserData(formData);
+    // Enforce: Streak is strictly non-editable and cannot be overridden by form input
+    const updated = {
+      ...formData,
+      streak: userData.streak, // Retain true automatic streak
+    };
+    setUserData(updated);
     setIsEditModalOpen(false);
   };
 
@@ -192,13 +240,31 @@ export default function ProfilePage() {
         </div>
 
         {/* ==================================================================
-            STREAK ROW: Flame icon + X Days
+            STREAK ROW: Flame icon + X Days & daily playtime status
             ================================================================== */}
         <div className="smriti-profile-streak-row">
-          <span className="smriti-profile-streak-icon" role="img" aria-label="streak flame">
-            🔥
-          </span>
-          <span className="smriti-profile-streak-text">{userData.streak} Days</span>
+          <div className="smriti-profile-streak-main">
+            <span className="smriti-profile-streak-icon" role="img" aria-label="streak flame">
+              🔥
+            </span>
+            <span className="smriti-profile-streak-text">{userData.streak} Days</span>
+          </div>
+
+          {/* Daily 5-min playtime goal badge */}
+          <div className="smriti-profile-streak-badge">
+            {playtimeTracker.goalMetToday ? (
+              <span className="smriti-streak-achieved-tag">
+                ✅ Streak Upgraded (+1 Day)
+              </span>
+            ) : (
+              <span
+                className="smriti-streak-progress-tag"
+                title="Play for 5 mins today to increase your streak!"
+              >
+                ⏱️ {formatPlaytime(playtimeTracker.playtimeSeconds)} / 5:00
+              </span>
+            )}
+          </div>
         </div>
 
         {/* ==================================================================
@@ -392,6 +458,7 @@ export default function ProfilePage() {
 
       {/* ==================================================================
           EDIT PROFILE MODAL (Configurability / Dynamic Values)
+          STREAK IS EXCLUDED FROM MANUAL EDITING
           ================================================================== */}
       {isEditModalOpen && (
         <div
@@ -478,15 +545,55 @@ export default function ProfilePage() {
                 />
               </div>
 
-              <div className="smriti-form-field">
-                <label className="smriti-form-label">Daily Streak (Days)</label>
-                <input
-                  type="number"
-                  className="smriti-form-input"
-                  value={formData.streak}
-                  onChange={(e) => setFormData({ ...formData, streak: Number(e.target.value) })}
-                  min="0"
-                />
+              {/* NON-EDITABLE LOCKED STREAK FIELD */}
+              <div className="smriti-form-field smriti-streak-locked-field">
+                <div className="smriti-streak-locked-header">
+                  <label className="smriti-form-label" style={{ display: 'flex', alignItems: 'center', gap: '6px' }}>
+                    <span>🔥 Daily Streak</span>
+                  </label>
+                  <span className="smriti-streak-lock-badge">
+                    <Lock size={12} /> Non-editable
+                  </span>
+                </div>
+
+                <div className="smriti-streak-locked-box">
+                  <div className="smriti-streak-locked-value">
+                    <span>{userData.streak} Days</span>
+                  </div>
+                  <p className="smriti-streak-locked-desc">
+                    Streaks cannot be manually edited. Your streak upgrades automatically upon logging in and playing for at least 5 minutes each day.
+                  </p>
+
+                  <div className="smriti-streak-min-progress">
+                    <div className="smriti-streak-min-label">
+                      <span>Today's active playtime:</span>
+                      <strong>
+                        {formatPlaytime(playtimeTracker.playtimeSeconds)} / 5:00
+                        {playtimeTracker.goalMetToday ? ' (Earned ✅)' : ''}
+                      </strong>
+                    </div>
+
+                    <div className="smriti-profile-progress-track" style={{ height: '8px' }}>
+                      <div
+                        className="smriti-profile-progress-fill"
+                        style={{
+                          width: `${Math.min(100, Math.round(((playtimeTracker.playtimeSeconds || 0) / DAILY_PLAYTIME_GOAL_SECONDS) * 100))}%`,
+                        }}
+                      />
+                    </div>
+
+                    {!playtimeTracker.goalMetToday && (
+                      <button
+                        type="button"
+                        className="smriti-streak-simulate-btn"
+                        onClick={() => streakService.simulatePlaytime(60)}
+                        title="Add 1 minute of playtime to test streak upgrade"
+                      >
+                        ⚡ +1 Min Test Playtime
+                      </button>
+                    )}
+                  </div>
+                </div>
               </div>
 
               <div className="smriti-form-row">
