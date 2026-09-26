@@ -8,7 +8,7 @@ export default function AuthLayout({ children, heading }) {
         
         {/* SMRITI Logo Block */}
         <div className="auth-logo-box">
-          <img src="/logo.png" alt="SMRITI Logo" className="auth-logo-icon" style={{ objectFit: 'contain' }} />
+          <img src="/logo.png" alt="SMRITI - Elder Care & Support logo" className="auth-logo-icon" style={{ objectFit: 'contain' }} />
           <h2 className="auth-logo-text">SMRITI</h2>
         </div>
 

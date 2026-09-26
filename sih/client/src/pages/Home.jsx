@@ -121,7 +121,7 @@ export default function Home() {
         <header className="smriti-header">
           {/* Left: App Logo & SMRITI Title */}
           <div className="smriti-brand-group">
-            <img src="/logo.png" alt="SMRITI Logo" style={{ height: '48px', width: 'auto', objectFit: 'contain' }} />
+            <img src="/logo.png" alt="SMRITI - Elder Care & Support logo" style={{ height: '48px', width: 'auto', objectFit: 'contain' }} />
           </div>
 
           {/* Center: Dynamic Greeting */}

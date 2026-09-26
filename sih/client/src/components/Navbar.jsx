@@ -56,7 +56,7 @@ export default function Navbar({ isSimpleMode, setIsSimpleMode }) {
             color: '#0284c7',
           }}
         >
-          <img src="/logo.png" alt="SMRITI Logo" style={{ height: '48px', width: 'auto', objectFit: 'contain' }} />
+          <img src="/logo.png" alt="SMRITI - Elder Care & Support logo" style={{ height: '48px', width: 'auto', objectFit: 'contain' }} />
         </Link>
 
         {/* Navigation Items */}

@@ -337,7 +337,7 @@ export default function ProfilePage() {
             {/* Drawer Header */}
             <div className="smriti-drawer-header">
               <div className="smriti-drawer-title-wrap">
-                <img src="/logo.png" alt="SMRITI Logo" style={{ height: '40px', width: 'auto', objectFit: 'contain' }} />
+                <img src="/logo.png" alt="SMRITI - Elder Care & Support logo" style={{ height: '40px', width: 'auto', objectFit: 'contain' }} />
               </div>
               <button
                 type="button"
