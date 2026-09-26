@@ -39,7 +39,7 @@ export default function RoutineRecallGame() {
       {/* Top Navigation */}
       <div style={{ marginBottom: '16px' }}>
         <button
-          onClick={() => navigate('/games')}
+          onClick={() => navigate('/')}
           className="btn-secondary"
           style={{ minHeight: '48px', padding: '8px 16px', fontSize: '0.95rem' }}
           type="button"
