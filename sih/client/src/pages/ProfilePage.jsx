@@ -156,32 +156,7 @@ export default function ProfilePage() {
     <div className="smriti-profile-page">
       <div className="smriti-profile-container">
         
-        {/* ==================================================================
-            TOP ROW: Square outlined icon buttons
-            - Left: Hamburger/menu-lines icon (opens side drawer)
-            - Right: Gear/settings icon (navigates to /settings)
-            ================================================================== */}
-        <header className="smriti-profile-top-row">
-          <button
-            type="button"
-            className="smriti-profile-square-btn"
-            onClick={() => setIsDrawerOpen(true)}
-            aria-label="Open Navigation Menu"
-            title="Menu"
-          >
-            <Menu size={26} strokeWidth={2.4} color="#111111" />
-          </button>
 
-          <button
-            type="button"
-            className="smriti-profile-square-btn"
-            onClick={() => navigate('/settings')}
-            aria-label="Navigate to Settings"
-            title="Settings"
-          >
-            <Settings size={26} strokeWidth={2.3} color="#111111" />
-          </button>
-        </header>
 
         {/* ==================================================================
             AVATAR: Large circle with black outline and fallback silhouette
