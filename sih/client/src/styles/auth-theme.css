@@ -1,0 +1,209 @@
+/* auth-theme.css - Shared Authentication Theme for SMRITI */
+@import url('https://fonts.googleapis.com/css2?family=Baloo+2:wght@400;500;600;700;800&display=swap');
+
+.auth-page-container {
+  min-height: 100vh;
+  background-color: #FDF6EC;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 40px 16px;
+  font-family: 'Baloo 2', sans-serif;
+}
+
+.auth-card {
+  width: 100%;
+  max-width: 420px;
+  background-color: transparent; /* Assuming the background is just the page color, but let's keep a wrapper */
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+/* SMRITI Logo Header */
+.auth-logo-box {
+  background-color: #FFFFFF;
+  border: 2px solid #E2E8F0;
+  border-radius: 16px;
+  padding: 16px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 24px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+}
+
+.auth-logo-icon {
+  width: auto;
+  height: 80px;
+  max-width: 100%;
+}
+
+.auth-logo-text {
+  display: none;
+}
+
+.auth-heading {
+  font-size: 1.6rem;
+  font-weight: 700;
+  color: #000000;
+  text-align: center;
+  margin-bottom: 32px;
+}
+
+/* Form Fields */
+.auth-form {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.auth-field-container {
+  background-color: #E8792E;
+  border: 2px solid #000000;
+  border-radius: 12px;
+  padding: 12px 16px;
+  display: flex;
+  flex-direction: column;
+  transition: all 0.2s ease;
+}
+
+.auth-field-container:focus-within {
+  box-shadow: 0 0 0 3px rgba(28, 43, 107, 0.3);
+}
+
+.auth-field-label {
+  font-weight: 700;
+  color: #000000;
+  font-size: 0.95rem;
+  margin-bottom: 4px;
+}
+
+.auth-input-wrapper {
+  position: relative;
+}
+
+.auth-input {
+  width: 100%;
+  background: transparent;
+  border: none;
+  border-bottom: 2px solid #000000;
+  padding: 4px 0;
+  font-size: 1.1rem;
+  font-family: 'Baloo 2', sans-serif;
+  font-weight: 600;
+  color: #000000;
+  outline: none;
+}
+
+.auth-input::placeholder {
+  color: rgba(0, 0, 0, 0.4);
+  font-weight: 500;
+}
+
+/* For select elements like Gender */
+select.auth-input {
+  cursor: pointer;
+  appearance: none;
+}
+
+/* Checkbox Row */
+.auth-checkbox-row {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  margin-top: 16px;
+  margin-bottom: 24px;
+}
+
+.auth-checkbox {
+  appearance: none;
+  width: 24px;
+  height: 24px;
+  min-width: 24px;
+  border: 2px solid #000000;
+  border-radius: 4px;
+  background-color: #FFFFFF;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: 2px;
+}
+
+.auth-checkbox:checked::after {
+  content: '✔';
+  color: #000000;
+  font-size: 16px;
+  font-weight: 800;
+}
+
+.auth-checkbox-label {
+  font-weight: 700;
+  color: #000000;
+  font-size: 0.95rem;
+  line-height: 1.3;
+  cursor: pointer;
+}
+
+/* Submit Button */
+.auth-submit-btn {
+  width: 100%;
+  background-color: #1C2B6B;
+  color: #FFFFFF;
+  border: none;
+  border-radius: 999px;
+  padding: 16px;
+  font-size: 1.2rem;
+  font-weight: 800;
+  font-family: 'Baloo 2', sans-serif;
+  text-transform: uppercase;
+  cursor: pointer;
+  transition: transform 0.1s, box-shadow 0.1s;
+  box-shadow: 0 4px 0px rgba(10, 16, 45, 1);
+}
+
+.auth-submit-btn:active {
+  transform: translateY(4px);
+  box-shadow: 0 0px 0px rgba(10, 16, 45, 1);
+}
+
+.auth-submit-btn:disabled {
+  opacity: 0.7;
+  cursor: not-allowed;
+  transform: none;
+  box-shadow: none;
+}
+
+/* Helper text */
+.auth-toggle-text {
+  text-align: center;
+  margin-top: 24px;
+  font-weight: 600;
+  color: #000000;
+}
+
+.auth-toggle-btn {
+  background: none;
+  border: none;
+  color: #1C2B6B;
+  font-weight: 800;
+  font-family: 'Baloo 2', sans-serif;
+  font-size: 1rem;
+  cursor: pointer;
+  text-decoration: underline;
+}
+
+.auth-error-msg {
+  background-color: #fee2e2;
+  color: #b91c1c;
+  padding: 12px;
+  border-radius: 8px;
+  border: 2px solid #ef4444;
+  font-weight: 700;
+  margin-bottom: 20px;
+  text-align: center;
+}

@@ -337,7 +337,7 @@ export default function ProfilePage() {
             {/* Drawer Header */}
             <div className="smriti-drawer-header">
               <div className="smriti-drawer-title-wrap">
-                <div className="smriti-drawer-logo-icon">🧠</div>
+                <img src="/logo.png" alt="SMRITI Logo" style={{ width: '24px', height: '24px', objectFit: 'contain' }} />
                 <h2 className="smriti-drawer-title">SMRITI Menu</h2>
               </div>
               <button

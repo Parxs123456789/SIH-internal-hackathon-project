@@ -1,72 +1,72 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
-import { Heart, Smile, ArrowRight, HeartHandshake } from 'lucide-react';
-import './AuthLandingPage.css';
+import { Smile, ArrowRight, HeartHandshake } from 'lucide-react';
+import AuthLayout from '../components/AuthLayout';
 
 export default function AuthLandingPage() {
   const navigate = useNavigate();
 
-  const handleElderLogin = () => {
-    // TODO: Implement Supabase Auth (e.g. signInWithPassword / signUp) for Elder profile fetching
-    navigate('/patient-login');
-  };
-
-  const handleCaregiverLogin = () => {
-    // TODO: Implement Supabase Auth (e.g. signInWithPassword / signUp) for Caretaker profile fetching
-    navigate('/caregiver-login');
-  };
-
   return (
-    <div className="auth-landing-container">
-      {/* Header */}
-      <div className="auth-header">
-        <div className="auth-logo">
-          <Heart size={32} color="#FFFFFF" />
-        </div>
-        <h1 className="auth-title">Welcome to Smriti</h1>
-        <p className="auth-subtitle">
-          A simple, caring space for elders and the people who support them.
-        </p>
-      </div>
-
-      {/* Illustration Area */}
-      <div className="auth-illustration">
-        {/* Placeholder for illustration */}
-        <HeartHandshake size={80} color="#E8C39E" />
-      </div>
-
-      {/* Role Selection */}
-      <h2 className="auth-section-label">How would you like to sign in?</h2>
-      
-      <div className="auth-cards-container">
+    <AuthLayout heading="How would you like to sign in?">
+      <div style={{ display: 'flex', flexDirection: 'column', gap: '16px', width: '100%', marginTop: '16px' }}>
+        
         {/* Elder Card */}
-        <div className="auth-role-card elder" onClick={handleElderLogin}>
-          <div className="auth-card-icon elder">
-            <Smile size={24} />
+        <div 
+          onClick={() => navigate('/patient-login')}
+          style={{
+            backgroundColor: '#E8792E',
+            border: '2px solid #000000',
+            borderRadius: '12px',
+            padding: '16px',
+            display: 'flex',
+            alignItems: 'center',
+            gap: '16px',
+            cursor: 'pointer',
+            transition: 'transform 0.1s'
+          }}
+          onMouseDown={(e) => e.currentTarget.style.transform = 'scale(0.98)'}
+          onMouseUp={(e) => e.currentTarget.style.transform = 'none'}
+          onMouseLeave={(e) => e.currentTarget.style.transform = 'none'}
+        >
+          <div style={{ backgroundColor: '#fff', borderRadius: '50%', padding: '8px', border: '2px solid #000' }}>
+            <Smile size={24} color="#000" />
           </div>
-          <div className="auth-card-content">
-            <h3 className="auth-card-title">Login as Elder</h3>
-            <p className="auth-card-subtext">Access reminders, routines and your care circle</p>
+          <div style={{ flex: 1 }}>
+            <h3 style={{ margin: 0, fontSize: '1.2rem', fontWeight: 700, color: '#000' }}>Elder Login</h3>
+            <p style={{ margin: 0, fontSize: '0.9rem', color: 'rgba(0,0,0,0.8)', fontWeight: 500 }}>Access reminders and routines</p>
           </div>
-          <div className="auth-card-action elder">
-            <ArrowRight size={16} />
-          </div>
+          <ArrowRight size={20} color="#000" />
         </div>
 
         {/* Caregiver Card */}
-        <div className="auth-role-card caregiver" onClick={handleCaregiverLogin}>
-          <div className="auth-card-icon caregiver">
-            <HeartHandshake size={24} />
+        <div 
+          onClick={() => navigate('/caregiver-login')}
+          style={{
+            backgroundColor: '#1C2B6B',
+            border: '2px solid #000000',
+            borderRadius: '12px',
+            padding: '16px',
+            display: 'flex',
+            alignItems: 'center',
+            gap: '16px',
+            cursor: 'pointer',
+            transition: 'transform 0.1s'
+          }}
+          onMouseDown={(e) => e.currentTarget.style.transform = 'scale(0.98)'}
+          onMouseUp={(e) => e.currentTarget.style.transform = 'none'}
+          onMouseLeave={(e) => e.currentTarget.style.transform = 'none'}
+        >
+          <div style={{ backgroundColor: '#fff', borderRadius: '50%', padding: '8px', border: '2px solid #000' }}>
+            <HeartHandshake size={24} color="#000" />
           </div>
-          <div className="auth-card-content">
-            <h3 className="auth-card-title">Login as Caretaker</h3>
-            <p className="auth-card-subtext">Manage care plans, goals, and stay connected</p>
+          <div style={{ flex: 1 }}>
+            <h3 style={{ margin: 0, fontSize: '1.2rem', fontWeight: 700, color: '#fff' }}>Caregiver Login</h3>
+            <p style={{ margin: 0, fontSize: '0.9rem', color: 'rgba(255,255,255,0.8)', fontWeight: 500 }}>Manage care plans and goals</p>
           </div>
-          <div className="auth-card-action caregiver">
-            <ArrowRight size={16} />
-          </div>
+          <ArrowRight size={20} color="#fff" />
         </div>
+
       </div>
-    </div>
+    </AuthLayout>
   );
 }

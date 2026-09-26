@@ -121,8 +121,8 @@ export default function Home() {
         <header className="smriti-header">
           {/* Left: App Logo & SMRITI Title */}
           <div className="smriti-brand-group">
-            <div className="smriti-logo-circle" aria-label="SMRITI Logo">
-              <span style={{ fontSize: '24px' }}>🌿</span>
+            <div className="smriti-logo-circle" aria-label="SMRITI Logo" style={{ padding: '4px' }}>
+              <img src="/logo.png" alt="SMRITI Logo" style={{ width: '100%', height: '100%', objectFit: 'contain' }} />
             </div>
             <div className="smriti-brand-text">
               <h1 className="smriti-brand-name">SMRITI</h1>

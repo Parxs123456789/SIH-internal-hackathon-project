@@ -56,26 +56,7 @@ export default function Navbar({ isSimpleMode, setIsSimpleMode }) {
             color: '#0284c7',
           }}
         >
-          <div
-            style={{
-              backgroundColor: '#e0f2fe',
-              padding: '10px',
-              borderRadius: '16px',
-              display: 'flex',
-              alignItems: 'center',
-              justifyContent: 'center',
-            }}
-          >
-            <Brain size={32} color="#0284c7" strokeWidth={2.5} />
-          </div>
-          <div>
-            <h1 style={{ fontSize: '1.45rem', fontWeight: 800, color: '#0f172a', lineHeight: 1.1 }}>
-              CogniCare <span style={{ color: '#0284c7' }}>NER</span>
-            </h1>
-            <p style={{ fontSize: '0.8rem', color: '#64748b', fontWeight: 600 }}>
-              {t('app.tagline')}
-            </p>
-          </div>
+          <img src="/logo.png" alt="SMRITI Logo" style={{ height: '48px', width: 'auto', objectFit: 'contain' }} />
         </Link>
 
         {/* Navigation Items */}

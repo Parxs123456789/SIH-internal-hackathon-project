@@ -63,8 +63,12 @@ export const api = {
     return { success: true, token: data.session.access_token, user };
   },
 
-  async registerCaregiver(email, password) {
-    const { data, error } = await supabase.auth.signUp({ email, password });
+  async registerCaregiver(email, password, metadata = {}) {
+    const { data, error } = await supabase.auth.signUp({ 
+      email, 
+      password,
+      options: { data: metadata }
+    });
     if (error) throw new Error(error.message);
 
     // Insert profile
@@ -79,8 +83,12 @@ export const api = {
     return { success: true };
   },
 
-  async registerPatient(email, password, caregiverEmail) {
-    const { data, error } = await supabase.auth.signUp({ email, password });
+  async registerPatient(email, password, caregiverEmail, metadata = {}) {
+    const { data, error } = await supabase.auth.signUp({ 
+      email, 
+      password,
+      options: { data: metadata }
+    });
     if (error) throw new Error(error.message);
 
     // Insert profile linking to caregiver
