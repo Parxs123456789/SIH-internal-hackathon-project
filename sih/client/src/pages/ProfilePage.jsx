@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
-import { Menu, Settings, X, Edit3, Check, RotateCcw, Lock, Clock } from 'lucide-react';
+import { Menu, Settings, X, Edit3, Check, RotateCcw, Lock, Clock, LogOut } from 'lucide-react';
 import { streakService, DAILY_PLAYTIME_GOAL_SECONDS } from '../services/streakService';
+import { api } from '../services/api';
 import './ProfilePage.css';
 
 /**
@@ -40,6 +41,15 @@ function formatPlaytime(totalSeconds = 0) {
 
 export default function ProfilePage() {
   const navigate = useNavigate();
+
+  const handleLogout = async () => {
+    try {
+      await api.logout();
+    } catch (e) {
+      console.error('Logout failed:', e);
+    }
+    navigate('/auth');
+  };
 
   // ---------------------------------------------------------------------------
   // Single configurable user-data object/state
@@ -156,7 +166,17 @@ export default function ProfilePage() {
     <div className="smriti-profile-page">
       <div className="smriti-profile-container">
         
-
+        <header className="smriti-profile-top-row" style={{ justifyContent: 'flex-end' }}>
+          <button
+            type="button"
+            className="smriti-profile-square-btn"
+            onClick={handleLogout}
+            aria-label="Log Out"
+            title="Log Out"
+          >
+            <LogOut size={24} strokeWidth={2.4} color="#ef4444" />
+          </button>
+        </header>
 
         {/* ==================================================================
             AVATAR: Large circle with black outline and fallback silhouette
